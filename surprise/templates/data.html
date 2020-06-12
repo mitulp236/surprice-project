@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>data</title>
+</head>
+<body>
+    <div>
+        {% for murgo in data %}
+                <h3>{{murgo.username_or_email}}</h3>
+                <h3>{{murgo.password}}</h3>
+        {% endfor %}
+    </div>
+</body>
+</html>

