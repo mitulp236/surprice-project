@@ -146,9 +146,15 @@ STATICFILES_DIRS = [
 
 ACCOUNT_ADAPTER = 'surprise.allauth.AccountAdapter'
 
+#EMAIL_USE_TLS = True
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER = DEFAULT_FROM_EMAIL = 'testyemailid@gmail.com'
+#EMAIL_HOST_PASSWORD = '*testyemailid07'
+
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.office365.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = DEFAULT_FROM_EMAIL = 'testyemailid@gmail.com'
-EMAIL_HOST_PASSWORD = '*testyemailid07'
+EMAIL_HOST_USER = DEFAULT_FROM_EMAIL = 'surprise-reward-me@outlook.com'
+EMAIL_HOST_PASSWORD = '*surprise07'
 

